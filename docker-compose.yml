@@ -1,0 +1,28 @@
+services:
+  sbg-koliseum-ddbb:
+    image: mongo:4.4
+    container_name: sbg-koliseum-ddbb
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: tj8w7Gffd65poP8h
+      MONGO_INITDB_DATABASE: koliseumdb
+    volumes:
+      # - ./data/vol-ddbb:/data/db
+      - ./src/tables:/docker-entrypoint-initdb.d
+    ports:
+      - 20005:27017
+
+  ntv-ddbb-admin:
+    image: mongo-express
+    container_name: sbg-koliseum-ddbb-admin
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: tj8w7Gffd65poP8h
+      ME_CONFIG_MONGODB_URL: mongodb://root:tj8w7Gffd65poP8h@sbg-koliseum-ddbb:27017/
+      ME_CONFIG_BASICAUTH: false
+    depends_on:
+      - ntv-ddbb

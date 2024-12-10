@@ -1,0 +1,8 @@
+# Backup files from docker
+docs/er_diagram.mwb.bak
+.data/
+
+# OS X
+.DS_Store*
+Icon?
+._*
